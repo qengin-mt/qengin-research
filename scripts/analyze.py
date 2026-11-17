@@ -142,14 +142,18 @@ def write_tsv(name, rows):
 
 
 def main():
+    global OUT
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bootstrap",type=int,default=10000)
     parser.add_argument("--seed",type=int,default=20261012)
     parser.add_argument("--cometkiwi-scores",type=Path,
                         default=DATA/"comet_wmt22_cometkiwi_da_vs_qe_segments.tsv",
                         help="Segment-level COMETKiwi TSV with source_sentence, target_sentence, cometkiwi_score")
+    parser.add_argument("--output-dir",type=Path,default=OUT,
+                        help="Directory for generated analysis artifacts (default: outputs)")
     args=parser.parse_args()
     if args.bootstrap<100: raise ValueError("Use at least 100 bootstrap replicates")
+    OUT=args.output_dir
     OUT.mkdir(parents=True,exist_ok=True)
     gold=read_json(DATA/"human_gold/anotovane_chyby_NMT.json")
     source={join_norm(r["source_sentence"]):s for s,r in enumerate(gold,1)}

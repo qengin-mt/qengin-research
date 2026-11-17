@@ -1,10 +1,10 @@
 # QEngin MT research reproduction
 
-This repository contains the research datasets and analysis scripts needed to regenerate the reported statistical tables and figures for *From Translation Errors to Quality Scores: ISO 5060-Guided LLM Evaluation with Human Validation*.
+This repository is the project's current data-availability package. It contains the research datasets and analysis scripts needed to regenerate the reported statistical tables and figures for *From Translation Errors to Quality Scores: ISO 5060-Guided LLM Evaluation with Human Validation*. The repository will be archived in a permanent research data repository when one is selected.
 
 ## Research history
 
-The study was conducted over an extended period in a separate working repository. This repository was assembled afterward solely for reproducibility; it is not the original development or model-inference repository and will be archived later.
+The study was conducted over an extended period in a separate working repository. This repository was assembled afterward for data availability and reproducibility. It is not the original development or model-inference repository. Its contents will be transferred to a permanent research data archive later.
 
 ## Reproduction boundary
 
@@ -62,7 +62,13 @@ Each run writes `cometkiwi_<model>.tsv` with source, target, and one segment sco
 
     uv run python scripts/analyze.py --cometkiwi-scores outputs/cometkiwi/cometkiwi_wmt23-xl.tsv --bootstrap 10000 --seed 20261012
 
-Use `cometkiwi_wmt22-da.tsv` or `cometkiwi_wmt23-xxl.tsv` to analyze the other checkpoints. This writes the usual analysis products under `outputs/`, replacing the prior generated analysis products there.
+Use the corresponding score file in `outputs/cometkiwi/` to analyze another checkpoint. This writes the usual analysis products under `outputs/`, replacing the prior generated analysis products there.
+
+To reproduce the manuscript's joint checkpoint comparison without overwriting the default analysis artifacts, run:
+
+    uv run python scripts/analyze_cometkiwi_checkpoints.py --bootstrap 10000 --seed 20261012
+
+This runs the analysis separately for WMT22 DA, WMT23 DA-XL, and WMT23 DA-XXL, writes checkpoint-specific artifacts below `outputs/cometkiwi-analysis/`, and creates the manuscript table and its machine-readable summary under `paper/generated/`.
 
 ## Included analysis inputs
 
@@ -73,12 +79,12 @@ Use `cometkiwi_wmt22-da.tsv` or `cometkiwi_wmt23-xxl.tsv` to analyze the other c
 | final_labels.tsv and final_accepted.tsv for each model | Final validity decisions and complete/accepted error populations |
 | accepted_human_gold_pairs*.tsv | Human semantic-link decisions |
 | datasets/nmt/FINAL *error_pairs.xlsx | Direct reviewed model-to-model pair decisions |
-| datasets/nmt/comet_wmt22_cometkiwi_da_vs_qe_segments.tsv | Saved reference-free COMETKiwi scores |
+| datasets/nmt/cometkiwi_and_qe_scores.tsv | Unified segment table with WMT22 DA, WMT23 DA-XL, WMT23 DA-XXL, and Gemma/Sol/Luna error-derived quality scores |
 
-`scripts/score_cometkiwi.py` can create alternative COMETKiwi score TSVs from the canonical source/target corpus; those outputs are generated artifacts and are not included as source datasets.
+`datasets/nmt/cometkiwi_and_qe_scores.tsv` combines all three checkpoint scores with the error-derived score columns from the original WMT22 comparison table. Source and target pairs were verified before joining. The original WMT22 comparison TSV remains as the default input to `analyze.py`. Checkpoint score outputs used by the joint runner are in `outputs/cometkiwi/`. `scripts/score_cometkiwi.py` can create new COMETKiwi score TSVs from the canonical source/target corpus.
 
 The error-derived score is calculated from the included complete error-annotation sets using target whitespace-token count, severity penalties neutral/minor/major/critical = 0/0.25/0.5/1, and Q = 1/(1+P/V). For each segment, the script sums severity penalties to obtain P, divides by the target whitespace-token count V to obtain E=P/V, and computes Q=1/(1+E).
 
-## Data release note
+## Archival note
 
-This repository is **not yet cleared for public dataset release**. It contains Guardian-derived English text, Slovak translations, and associated human annotations, and project records do not establish redistribution rights for those materials. The Guardian's [current terms of service](https://www.theguardian.com/help/terms-of-service) reserve rights in Guardian content and restrict reproduction and text/data mining without prior written approval. Those terms do not by themselves determine the rights applicable to this historical research corpus; confirm permission and the applicable institutional/legal basis before making the repository publicly accessible. Keep repository access restricted until this is resolved.
+This GitHub repository currently provides access to the research materials and reproduction code. It is intended as an interim location. The project plans to deposit an archived version in a permanent research data repository later.
