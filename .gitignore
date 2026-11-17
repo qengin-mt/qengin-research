@@ -1,0 +1,11 @@
+.venv/
+.venv-comet/
+__pycache__/
+*.py[cod]
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+paper/
+outputs/
