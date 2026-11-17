@@ -1,10 +1,10 @@
 # QEngin MT research reproduction
 
-This repository is the project's current data-availability package. It contains the research datasets and analysis scripts needed to regenerate the reported statistical tables and figures for *From Translation Errors to Quality Scores: ISO 5060-Guided LLM Evaluation with Human Validation*. The repository will be archived in a permanent research data repository when one is selected.
+This repository contains the research datasets and analysis scripts needed to regenerate the reported statistical tables and figures for *From Translation Errors to Quality Scores: ISO 5060-Guided LLM Evaluation with Human Validation*.
 
 ## Research history
 
-The study was conducted over an extended period in a separate working repository. This repository was assembled afterward for data availability and reproducibility. It is not the original development or model-inference repository. Its contents will be transferred to a permanent research data archive later.
+The study was conducted over an extended period in a separate working repository. This repository was assembled afterward for data availability and reproducibility. It is not the original development or model-inference repository. This repository will be archived later.
 
 ## Reproduction boundary
 
